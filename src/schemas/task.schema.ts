@@ -1,6 +1,5 @@
 import { z } from "zod";
 import baseSchema from "./base.schema";
-import { categorySchema } from "./category.schema";
 
 const taskSchema = baseSchema.extend({
     id: z.number(),
@@ -16,4 +15,6 @@ const taskSchema = baseSchema.extend({
 
 const taskCreateSchema = taskSchema.omit({id: true, categories: true});
 
-export { taskCreateSchema, taskSchema};
+const taskReturnSchema = taskSchema;
+
+export { taskCreateSchema, taskReturnSchema, taskSchema};
