@@ -1,5 +1,17 @@
-import express, { json } from "express";
+import express, { Application } from "express";
+import "express-async-errors";
+import "reflect-metadata";
+import helmet from "helmet";
+import { TaskController } from "./controllers/TaskController";
+import { taskRouter } from "./routers/task.router";
+import { categoryRouter } from "./routers/category.router";
 
-export const app = express();
+export const app: Application = express();
 
-app.use(json());
+app.use(helmet());
+app.use(express.json());
+
+export const taskController = new TaskController();
+
+app.use("/tasks", taskRouter);
+app.use("/categories", categoryRouter);

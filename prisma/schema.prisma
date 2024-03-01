@@ -11,17 +11,17 @@ datasource db {
 }
 
 model Task {
-  id Int @id @default(autoincrement())
+  id       Int        @id @default(autoincrement())
   title    String
   content  String
-  finished Boolean @default(false)
-  category Category[]
+  finished Boolean    @default(false)
+  categoryId Int?
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 }
 
 model Category {
-  id Int @id @default(autoincrement())
+  id   Int    @id @default(autoincrement())
   name String
-
-  ownerId Int
-  owner   Task @relation(fields: [ownerId], references: [id])
+  task Task[]
 }
+
