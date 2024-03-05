@@ -3,9 +3,6 @@ import { prisma } from "../database/prisma";
 import { AppError } from "../errors/appError";
 
 export class CategoryMiddleware {
-    static categoryExists(arg0: string, categoryExists: any) {
-        throw new Error("Method not implemented.");
-    }
     public categoryExists = async (
         req: Request,
         res: Response,

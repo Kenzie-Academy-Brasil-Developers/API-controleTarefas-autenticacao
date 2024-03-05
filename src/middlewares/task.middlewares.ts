@@ -3,9 +3,6 @@ import { prisma } from "../database/prisma";
 import { AppError } from "../errors/appError";
 
 export class TaskMiddleware {
-    static categoryIdBody(arg0: string, arg1: any, categoryIdBody: any, create: (req: Request<import("express-serve-static-core").ParamsDictionary, any, any, import("qs").ParsedQs, Record<string, any>>, res: Response<any, Record<string, any>>) => Promise<Response<any, Record<string, any>>>) {
-        throw new Error("Method not implemented.");
-    }
     public taskExists = async (
         req: Request, res: Response, next: NextFunction
     ): Promise<void> => {
@@ -21,7 +18,7 @@ export class TaskMiddleware {
         res.locals = { ...res.locals, foundTask };
         return next();
     };
-    
+
     public bodyCategoryIdExists = async (
         { body: { categoryId } }: Request,
         res: Response, next: NextFunction

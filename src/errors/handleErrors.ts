@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express"
 import { AppError } from "./appError"
-import { AnyZodObject, ZodError, ZodNumber, ZodObject, ZodString, ZodTypeAny } from "zod";
+import { AnyZodObject, ZodError } from "zod";
 
-export class globalError {
+export class GlobalError {
     public handleErros = (error: Error, req: Request, res: Response, next: NextFunction): Response => {
         if (error instanceof AppError) {
             return res.status(400).json({ message: error.message });

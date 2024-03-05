@@ -6,18 +6,18 @@ import { TaskCreate, TaskReturn, TaskReturnCategory, TaskUpdate } from "../inter
 
 export class TaskService {
     async create(task: TaskCreate): Promise<TaskReturn> {
-       const newTask = await prisma.task.create({ data: task});
+        const newTask = await prisma.task.create({ data: task });
 
-       return taskSchema.parse(newTask);
+        return taskSchema.parse(newTask);
     }
 
     public get = async (
         category?: string
     ): Promise<Array<TaskReturnCategory>> => {
-        let prismaQuery: any = { include: { category: true }};
+        let prismaQuery: any = { include: { category: true } };
 
-        if(category) {
-            const whereClause = { name: { equals: category, mode: "insensitive"} };
+        if (category) {
+            const whereClause = { name: { equals: category, mode: "insensitive" } };
             prismaQuery = { ...prismaQuery, where: { category: whereClause } };
         }
         const allsTask = await prisma.task.findMany(prismaQuery);
@@ -27,12 +27,12 @@ export class TaskService {
         }
         return taskReturnCategorySchema.array().parse(allsTask);
     };
-    
+
     async retrive(category?: Number): Promise<TaskReturnCategory> {
         return taskReturnCategorySchema.parse(category);
     };
 
-    async update(taskId: string, updateData: TaskUpdate): Promise<TaskReturn>{
+    async update(taskId: string, updateData: TaskUpdate): Promise<TaskReturn> {
         const task = await prisma.task.update({
             where: { id: Number(taskId) },
             data: updateData,

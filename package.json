@@ -4,10 +4,11 @@
   "description": "Está documentação servirá de base para entrega, todas as rotas deverão se comportar assim como está previsto na documentação abaixo:",
   "main": "index.js",
   "scripts": {
-    "dev": "dotenv -e .env.develop -- tsnd --cls --rs --ignore-watch node_nodules --respawn src/server.ts",
-    "migrate:dev": "dotenv -e .env -- npx prisma migrate dev",
+    "dev": "dotenv -e .env.dev -- tsnd --cls --rs --ignore-watch node_nodules --respawn src/server.ts",
+    "migrate:dev": "dotenv -e .env.dev -- npx prisma migrate dev",
     "test": "dotenv -e .env.test -- vitest",
-    "migrate:test": "dotenv -e .env.test -- npx prisma migrate dev"
+    "migrate:test": "dotenv -e .env.test -- npx prisma migrate dev",
+    "clean": "rm -rf dist"
   },
   "keywords": [],
   "author": "",
@@ -18,11 +19,11 @@
     "prisma": "^5.6.0",
     "supertest": "^6.3.3",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.3.2",
+    "typescript": "^5.3.3",
     "vitest": "^0.34.6"
   },
   "dependencies": {
-    "@prisma/client": "^5.6.0",
+    "@prisma/client": "^5.10.2",
     "dotenv": "^16.3.1",
     "dotenv-cli": "^7.3.0",
     "express": "^4.18.2",
