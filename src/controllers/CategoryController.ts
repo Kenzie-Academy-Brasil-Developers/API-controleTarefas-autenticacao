@@ -11,7 +11,7 @@ export class CategoryController {
     
     public deleteCategory = async (req: Request, res: Response): Promise<Response> => {
         await this.categoryService.delete(Number(req.params.categoryId));
-        return res.status(200).json();
+        return res.status(204).json();
     };
     
  

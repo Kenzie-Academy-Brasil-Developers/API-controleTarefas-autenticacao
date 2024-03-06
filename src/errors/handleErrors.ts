@@ -5,7 +5,7 @@ import { AnyZodObject, ZodError } from "zod";
 export class GlobalError {
     public handleErros = (error: Error, req: Request, res: Response, next: NextFunction): Response => {
         if (error instanceof AppError) {
-            return res.status(400).json({ message: error.message });
+            return res.status(error.status).json({ message: error.message });
         }
         if (error instanceof ZodError){
             return res.status(400).json({ message: error.errors });

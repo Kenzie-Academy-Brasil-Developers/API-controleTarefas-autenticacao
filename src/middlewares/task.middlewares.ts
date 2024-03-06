@@ -40,7 +40,7 @@ export class TaskMiddleware {
             where: { id: categoryId },
         });
         if (!foundCategory) {
-            throw new AppError("Category not found", 403);
+            throw new AppError("Category not found", 404);
         }
         return next();
     };
