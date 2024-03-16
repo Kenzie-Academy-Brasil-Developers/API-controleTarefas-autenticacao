@@ -10,18 +10,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+
+  Task     Task[]
+  Category Category[]
+}
+
 model Task {
-  id       Int        @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   title    String
   content  String
-  finished Boolean    @default(false)
+  finished Boolean @default(false)
+
   categoryId Int?
-  category Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Category {
   id   Int    @id @default(autoincrement())
   name String
-  task Task[]
-}
 
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  tasks Task[]
+}

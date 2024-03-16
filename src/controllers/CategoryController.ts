@@ -1,18 +1,24 @@
 import { Request, Response } from "express";
-import { CategoryService } from "../services/CategoryServices";
+import { CategoryService } from "../services";
 
 export class CategoryController {
-    private categoryService = new CategoryService();
-    
-    public createCategory = async (req: Request, res: Response): Promise<Response> => {
-        const newCategory = await this.categoryService.create(req.body);
+    private categoryService: CategoryService;
+
+    constructor(){
+    this.categoryService = new CategoryService();
+    }
+
+    public create = async (req: Request, res: Response): Promise<Response> => {
+        const userId = Number(res.locals.sub);
+        const newCategory = await this.categoryService.create(req.body, userId);
+
         return res.status(201).json(newCategory);
     };
     
-    public deleteCategory = async (req: Request, res: Response): Promise<Response> => {
-        await this.categoryService.delete(Number(req.params.categoryId));
+    public delete = async ({ params: { categoryId }}: Request, res: Response): Promise<Response> => {
+
+        await this.categoryService.delete(Number(categoryId));
+        
         return res.status(204).json();
-    };
-    
- 
+    }; 
 };

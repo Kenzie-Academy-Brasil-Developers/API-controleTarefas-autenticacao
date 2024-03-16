@@ -3,11 +3,13 @@ import { prisma } from "../database/prisma";
 import { CategoryCreate } from "../interfaces/category.interface";
 
 export class CategoryService {
-    async create(payLoad: CategoryCreate): Promise<Category> {
-        const data = await prisma.category.create({ data: payLoad });
-        return data;
+    public create = async (
+        payLoad: CategoryCreate,
+        userId: number
+        ): Promise<Category> => {
+        return await prisma.category.create({ data: { ...payLoad, userId }});
     }
-    async delete(categoryId: number): Promise<void> {
+    public delete = async (categoryId: number): Promise<void> => {
         await prisma.category.delete({ where: { id: categoryId } });
     };
 };
