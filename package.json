@@ -9,7 +9,9 @@
     "test": "dotenv -e .env.test -- vitest",
     "migrate:test": "dotenv -e .env.test -- npx prisma migrate dev",
     "clean": "rm -rf dist",
-    "start": "JWT_SECRET=minhaChaveSecreta node app.js"
+    "build": "tsc",
+    "start": "node dist/server.js"
+    "migrate:prod": "npx prisma migrate dev"
   },
   "keywords": [],
   "author": "",
