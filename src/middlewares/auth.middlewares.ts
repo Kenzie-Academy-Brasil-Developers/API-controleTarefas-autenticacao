@@ -5,19 +5,21 @@ import { JwtPayload, verify } from "jsonwebtoken";
 export class AuthMiddleware {
     public validateToken = (
         req: Request, res: Response, next: NextFunction
-        ): void =>  {
+    ): void => {
         const { authorization } = req.headers;
 
         if (!authorization) throw new AppError("Token is required", 401);
-        
-        const [_, token] = authorization.split(" ");
 
-        if (!token) throw new AppError("Token is required", 401);
-       const { sub } = verify(token, process.env.JWT_SECRET!) as JwtPayload;
+        const [_bearer, token] = authorization.split(" ");
 
-       res.locals = { ...res.locals, sub };
+        //     if (!token) throw new AppError("Token is required", 401);
+        //    const { sub } = verify(token, process.env.JWT_SECRET!) as JwtPayload;
 
-       return next();
+        const secret = process.env.SECRET_KEY!;
+
+        res.locals = { ...res.locals, decoded: verify(token, secret) };
+
+        return next();
     };
 
     public isTaskOwner = async (
@@ -26,13 +28,13 @@ export class AuthMiddleware {
         const sub = Number(res.locals.sub);
         const { foundTask } = res.locals;
 
-        if (foundTask.userId !== Number(sub)){
+        if (foundTask.userId !== Number(sub)) {
             throw new AppError("This user is not tha task owner", 403);
         }
         return next();
     };
-    
-    public isCategoryOwner = async(
+
+    public isCategoryOwner = async (
         req: Request, res: Response, next: NextFunction
     ): Promise<void> => {
         const sub = Number(res.locals.sub);

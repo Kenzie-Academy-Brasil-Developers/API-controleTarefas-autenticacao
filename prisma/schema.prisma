@@ -11,10 +11,12 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   name     String
-  email    String @unique
+  email    String  @unique
   password String
+
+  admin    Boolean @default(false)
 
   Task     Task[]
   Category Category[]
@@ -25,7 +27,7 @@ model Task {
   title    String
   content  String
   finished Boolean @default(false)
-
+  
   categoryId Int?
   category   Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
