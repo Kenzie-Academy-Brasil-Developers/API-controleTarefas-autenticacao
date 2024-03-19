@@ -4,7 +4,6 @@ import { taskCreateSchema, taskUpdateSchema } from "../schemas/task.schema";
 import { authMiddleware, ensureMiddleware } from "../middlewares";
 
 export const taskRouter = Router();
-
 const taskController = new TaskController();
 
 taskRouter.use(authMiddleware.validateToken);

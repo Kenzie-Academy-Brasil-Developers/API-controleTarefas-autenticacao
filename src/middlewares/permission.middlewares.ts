@@ -19,9 +19,9 @@ export class permissionMiddleware {
             throw new AppError("Token owner not found.", 403);
         }
 
-        // if (userToken.admin || userId === userTokenId) {
-        //     return next()
-        // }
+        if (userToken.admin || userId === userTokenId) {
+            return next()
+        }
 
         throw new AppError("Insuffient permission.", 403);
     }

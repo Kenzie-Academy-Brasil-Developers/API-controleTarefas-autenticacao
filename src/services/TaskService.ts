@@ -35,7 +35,7 @@ export class TaskService {
         if (!allTasks.length) {
             throw new AppError("Category not found", 404);
         }
-        return taskReturnCategorySchema.array().parse(allTasks);
+        return allTasks.map(task => taskReturnCategorySchema.parse(task));
     };
 
     public retrive = async (foundTask: Task): Promise<TaskReturnCategory> => {

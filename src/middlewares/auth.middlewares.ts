@@ -10,10 +10,11 @@ export class AuthMiddleware {
 
         if (!authorization) throw new AppError("Token is required", 401);
 
-        const [_bearer, token] = authorization.split(" ");
+        const token = authorization.split(" ")[1];
 
-        //     if (!token) throw new AppError("Token is required", 401);
-        //    const { sub } = verify(token, process.env.JWT_SECRET!) as JwtPayload;
+        if (!token) throw new AppError("Token is required", 401);
+        
+        const { sub } = verify(token, process.env.JWT_SECRET!) as JwtPayload;
 
         const secret = process.env.SECRET_KEY!;
 
